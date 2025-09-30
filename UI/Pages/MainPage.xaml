@@ -4,9 +4,45 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:UI"
-      mc:Ignorable="d"
-      Title="MainPage" Height="450" Width="800">
+      mc:Ignorable="d">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Левая часть: список заявок -->
+        <ListView x:Name="RequestsListView"
+                  Grid.Column="0"
+                  Margin="10"
+                  SelectionMode="Single">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Название" Width="150" DisplayMemberBinding="{Binding Title}" />
+                    <GridViewColumn Header="Статус" Width="100" DisplayMemberBinding="{Binding Status}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <StackPanel Grid.Column="1"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="200">
+
+            <Button x:Name="AddButton"
+                    Content="Добавить"
+                    Height="40"/>
+
+            <Button x:Name="EditButton"
+                    Content="Редактировать"
+                    Height="40"/>
+
+            <Button x:Name="DeleteButton"
+                    Content="Удалить"
+                    Height="40"/>
+        </StackPanel>
         
     </Grid>
 </Page>
