@@ -4,9 +4,55 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:UI"
-      mc:Ignorable="d"
-      Title="LogInPage" Height="450" Width="800">
-    <Grid>
-        
+      mc:Ignorable="d">
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Вход"
+                   Grid.Row="0" Grid.Column="1"
+                   FontSize="28" FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Логин:"
+                   Grid.Row="1" Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="10"/>
+
+        <TextBox x:Name="LoginTextBox"
+                 Grid.Row="1" Grid.Column="1"
+                 Margin="10"
+                 Height="30"/>
+
+        <TextBlock Text="Пароль:"
+                   Grid.Row="2" Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="10"/>
+
+        <PasswordBox x:Name="PasswordBox"
+                     Grid.Row="2" Grid.Column="1"
+                     Margin="10"
+                     Height="30"/>
+
+        <Button x:Name="LoginButton"
+                Content="Войти"
+                Grid.Row="3" Grid.Column="1"
+                Width="100" Height="35"
+                Margin="10"
+                HorizontalAlignment="Center"
+                Click="LoginButton_Click"/>
     </Grid>
 </Page>
