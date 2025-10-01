@@ -15,7 +15,7 @@ public partial class LogInPage : Page
         string login = LoginTextBox.Text;
         string password = PasswordBox.Password;
         
-        if (LogInCheck(login,  password))
+        if (LogInCheck(login, password))
         {
             NavigationService?.Navigate(new MainPage());
         }
@@ -26,7 +26,7 @@ public partial class LogInPage : Page
     }
 
     private bool LogInCheck(string login, string password)
-    {   
-        return (login == "admin" && password == "123");
+    {
+        return true; //(login == "admin" && password == "123");
     }
 }
