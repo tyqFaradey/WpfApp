@@ -7,7 +7,7 @@ namespace UI;
 
 public partial class AddRequestPage : Page
 {
-    public event Action<Request>? RequestAdded;
+    public event Action<Request>? RequestSaved;
     
     public AddRequestPage()
     {
@@ -19,29 +19,21 @@ public partial class AddRequestPage : Page
     
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {   
-        try
+        var request = new Request
         {
-            var request = new Request
-            {
-                Id = int.TryParse(IdTextBox.Text, out int id) ? id : 0,
-                Date = DatePicker.SelectedDate ?? DateTime.Now,
-                Type = TypeTextBox.Text,
-                Model = ModelTextBox.Text,
-                Description = DescriptionTextBox.Text,
-                ClientFullName = ClientFullNameTextBox.Text,
-                ClientPhoneNumber = ClientPhoneNumberTextBox.Text,
-                PerformerFullName = PerformerFullNameTextBox.Text,
-                Status = StatusTextBox.Text
-            };
+            Id = -1,
+            Date = DatePicker.SelectedDate ?? DateTime.Now,
+            Type = TypeTextBox.Text,
+            Model = ModelTextBox.Text,
+            Description = DescriptionTextBox.Text,
+            ClientFullName = ClientFullNameTextBox.Text,
+            ClientPhoneNumber = ClientPhoneNumberTextBox.Text,
+            PerformerFullName = PerformerFullNameTextBox.Text,
+            Status = StatusTextBox.Text
+        };
 
-            RequestAdded?.Invoke(request);
-
-            NavigationService?.GoBack();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Ошибка при добавлении заявки");
-        }
+        RequestSaved?.Invoke(request);
+        NavigationService?.GoBack();
     }
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     { 

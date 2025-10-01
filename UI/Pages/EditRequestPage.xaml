@@ -29,7 +29,7 @@
             <!-- Id -->
             <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:"  
                        VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
-            <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" Margin="5"/>
+            <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="False"/>
             
             <!-- Date -->
             <TextBlock Text="Дата:" Grid.Row="1" Grid.Column="0"

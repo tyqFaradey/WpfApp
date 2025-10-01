@@ -4,15 +4,23 @@ using System.Windows.Controls;
 
 using Domain;
 
+using Data.Interfaces;
+using Data.InMemory;
+
 namespace UI;
 
 public partial class MainPage : Page
 {
-    private ObservableCollection<Request> Requests = [];
+    private readonly IRequestRepository _repository;
+    private ObservableCollection<Request> Requests { get; set; }
 
     public MainPage()
     {
+        _repository = new Repository();
+        
         InitializeComponent();
+        
+        Requests = new ObservableCollection<Request>(_repository.GetAll());
         RequestsListView.ItemsSource = Requests;
         
         AddButton.Click += AddButton_Click;
@@ -20,10 +28,24 @@ public partial class MainPage : Page
         DeleteButton.Click += DeleteButton_Click;
     }
     
+    private void RefreshList()
+    {   
+        Requests.Clear();
+        foreach (var req in _repository.GetAll())
+        {
+            Requests.Add(req);
+        }
+    }
+    
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
         var addPage = new AddRequestPage();
-        addPage.RequestAdded += AddRequest;
+        addPage.RequestSaved += request =>
+        {
+            _repository.Add(request);
+            RefreshList();
+        };
+
         NavigationService?.Navigate(addPage);
     }
     
@@ -32,39 +54,22 @@ public partial class MainPage : Page
         if (RequestsListView.SelectedItem is not Request selected) return;
         
         var editPage = new EditRequestPage(selected);
-        editPage.RequestEdited += EditRequest;
+        editPage.RequestSaved += request =>
+        {
+            _repository.Update(request);
+            RefreshList();
+        };
+
         NavigationService?.Navigate(editPage);
     }
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        DeleteRequest();
-    }
-    
-    private void AddRequest(Request request) 
-    {
-        Requests.Add(request);
-    }
-    private void EditRequest(Request request)
-    {
         if (RequestsListView.SelectedItem is not Request selected) return;
         
-        selected.Id = request.Id;
-        selected.Date = request.Date;
-        selected.Type = request.Type;
-        selected.Model =  request.Model;
-        selected.Description = request.Description;
-        selected.ClientFullName = request.ClientFullName;
-        selected.ClientPhoneNumber = request.ClientPhoneNumber;
-        selected.PerformerFullName = request.PerformerFullName;
-        selected.Status = request.Status;
-            
-        RequestsListView.Items.Refresh();
-    }
-    private void DeleteRequest()
-    {
-        if (RequestsListView.SelectedItem is not Request selected) return;
+        Console.WriteLine(123);
         
-        Requests.Remove(selected);
+        _repository.Delete(selected.Id);
+        RefreshList();
     }
 }
